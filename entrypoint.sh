@@ -160,6 +160,15 @@ then
     git switch -c "$TARGET_BRANCH" || true
 fi
 
+echo "[+] Tracking big files into lfs"
+FILE_SIZE_THRESHOLD=$((100 * 1024 * 1024)) # 100 MB
+
+# Find and track large files
+find . -type f -size +${FILE_SIZE_THRESHOLD}c | while read file; do
+  git lfs track "$file"
+  git add "$file" .gitattributes
+done
+
 echo "[+] Adding git commit"
 git add .
 

@@ -163,8 +163,8 @@ fi
 echo "[+] Tracking big files into lfs"
 FILE_SIZE_THRESHOLD=$((100 * 1024 * 1024)) # 100 MB
 
-# Find and track large files
-find . -type f -size +${FILE_SIZE_THRESHOLD}c | while read file; do
+# Find and track large files, excluding the .git directory
+find . -type f -size +${FILE_SIZE_THRESHOLD}c ! -path './.git/*' | while read file; do
   git lfs track "$file"
   git add "$file" .gitattributes
 done

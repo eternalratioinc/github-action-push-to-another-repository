@@ -94,6 +94,12 @@ git config --global http.version HTTP/1.1
 }
 ls -la "$CLONE_DIR"
 
+# Pull LFS objects after cloning
+echo "[+] Pull lfs"
+cd "$CLONE_DIR"
+git lfs pull
+cd -
+
 TEMP_DIR=$(mktemp -d)
 # This mv has been the easier way to be able to remove files that were there
 # but not anymore. Otherwise we had to remove the files from "$CLONE_DIR",

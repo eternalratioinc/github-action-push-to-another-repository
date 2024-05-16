@@ -74,13 +74,13 @@ git config --global user.name "$USER_NAME"
 git config --global http.version HTTP/1.1
 
 {
-	git clone --single-branch --depth 1 --branch "$TARGET_BRANCH" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+	GIT_CLONE_PROTECTION_ACTIVE=false git clone --single-branch --depth 1 --branch "$TARGET_BRANCH" "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
 } || {
     if [ "$CREATE_TARGET_BRANCH_IF_NEEDED" = "true" ]
     then
         # Default branch of the repository is cloned. Later on the required branch
 	# will be created
-        git clone --single-branch --depth 1 "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
+        GIT_CLONE_PROTECTION_ACTIVE=false git clone --single-branch --depth 1 "$GIT_CMD_REPOSITORY" "$CLONE_DIR"
     else
         false
     fi
